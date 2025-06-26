@@ -111,6 +111,20 @@ form.addEventListener('submit', e => {
   };
   loadCategory(1);
 });
+document.getElementById('movieForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const movie = document.getElementById('query').value;
+  fetch('/action.csv', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({movie: movie})
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Handle the response, e.g., display recommendations
+    console.log(data);
+  });
+});
 
 //closem
 
