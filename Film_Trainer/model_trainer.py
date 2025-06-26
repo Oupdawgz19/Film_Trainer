@@ -19,16 +19,13 @@ if __name__ == "__main__":
     app.run(debug=True)
 
 @app.route("/")
-def get_matching_movies_from_csv(action.csv, user_input):
+def get_matching_movies_from_csv("action.csv", movieForm ):
 
     df = pd.read_csv("action.csv")
-
-    # Assuming you have a 'title' column and want to find case-insensitive matches
-    # Filter rows where the title contains the user input
     matches = df[df['genre'].str.contains(user_input, case=False, na=False)]
 
-    # Return the first 5 matches as a list of dictionaries (or as desired)
-    return matches.head(5).to_dict(orient='records')
+    # Return the first 5 matches as a list
+    return matches.head(5).to_dict(orient='genre')
 def home():
     return f"Loaded {len(data)} movies from CSV."
 
