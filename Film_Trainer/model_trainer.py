@@ -14,20 +14,19 @@ def recommend():
         matches = data[data["title"].str.lower().str.contains(query, na=False)]
         results = matches.head(5).to_dict(orient="records")
     return render_template("index.html", results=results)
+    
+    def get_matching_movies_from_csv(matches, query ):
 
-if __name__ == "__main__":
-    app.run(debug=True)
-
-@app.route("/")
-def get_matching_movies_from_csv("action.csv", movieForm ):
-
-    df = pd.read_csv("action.csv")
-    matches = df[df['genre'].str.contains(user_input, case=False, na=False)]
+  
+    matches = data[data['genre'].str.contains(query, case=False, na=False)]
 
     # Return the first 5 matches as a list
-    return matches.head(5).to_dict(orient='genre')
+    return matches.head(5).to_dict(orient='records')
+
 def home():
     return f"Loaded {len(data)} movies from CSV."
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
