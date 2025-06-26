@@ -10,6 +10,10 @@ def get_movies(query):
     url = f"https://api.themoviedb.org/3/search/movie?api_key={TMDB_API_KEY}&query={query}"
     response = requests.get(url)
     results = response.json().get("results", [])
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        return response.json().get("results", [])
     return results[:5]  # Limit to 5 base results
 
 def get_similar_movies(base_movies):
